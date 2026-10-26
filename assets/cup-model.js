@@ -1,0 +1,7 @@
+(function(root){
+const times={afternoon:{label:'오후의 쉼표',title:'잠깐 쉬어가는 한 잔',line:'할 일 사이에, 나를 위한 작은 쉼표.'},evening:{label:'퇴근 후의 여유',title:'나에게 돌아오는 한 잔',line:'오늘의 일을 내려놓고, 내 속도로.'},together:{label:'함께하는 시간',title:'대화가 길어지는 한 잔',line:'서로 다른 취향도, 같은 테이블에서.'}};
+const flavors={deep:{label:'고소하고 묵직하게',name:'깊고 고소한 풍미',description:'깊은 로스팅 향과 고소한 풍미를 중심으로 살펴보세요.'},soft:{label:'부드럽고 크리미하게',name:'부드러운 라테 스타일',description:'로스티드 풍미와 부드러운 질감이 어우러지는 라테 스타일을 살펴보세요.'},bright:{label:'산뜻하고 가볍게',name:'밝고 산뜻한 풍미',description:'밝은 향과 산뜻한 풍미를 중심으로 살펴보세요.'}};
+const caffeine={less:{label:'디카페인 커피',note:'디카페인에도 카페인이 남아 있을 수 있어요. 실제 제품의 카페인 함량을 확인해주세요.'},none:{label:'원두 없는 로스티드 음료',note:'커피 원두를 쓰지 않는 개발 방향입니다. 원두를 쓰지 않는다는 사실만으로 완성 음료의 카페인 함량이나 개인의 섭취 적합성을 보장하지 않습니다.'},regular:{label:'일반 커피',note:'카페인이 포함된 일반 커피입니다. 실제 제품의 원재료와 카페인 정보를 확인해주세요.'}};
+function result(a){if(!a||!Object.hasOwn(times,a.time)||!Object.hasOwn(flavors,a.flavor)||!Object.hasOwn(caffeine,a.caffeine))return null;const t=times[a.time],f=flavors[a.flavor],c=caffeine[a.caffeine];const exploratory=a.caffeine==='none'&&a.flavor==='bright';return {title:t.title,line:t.line,time:t.label,flavor:f.label,drink:c.label,style:exploratory?'산뜻한 로스티드 풍미 탐색':f.name,reason:exploratory?'원두 없는 음료 중 산뜻한 풍미에 관심이 있으시군요. 이 조합은 아직 개발 검토 중인 방향이에요.':f.description,note:c.note,code:[a.time,a.flavor,a.caffeine].join('-')}}
+const api={result,times,flavors,caffeine};if(typeof module!=='undefined')module.exports=api;else root.DearCup=api;
+})(typeof window!=='undefined'?window:this);
