@@ -8,7 +8,7 @@
 (function () {
   document.querySelectorAll('[data-ga]').forEach(function (el) {
     el.addEventListener('click', function () {
-      if (typeof window.gtag !== 'function') return;
+      if (el.getAttribute('data-ga') === 'off' || typeof window.gtag !== 'function') return;
       window.gtag('event', el.getAttribute('data-ga'), {
         location: el.getAttribute('data-ga-location') || '',
         button_text: (el.textContent || '').trim().slice(0, 40)

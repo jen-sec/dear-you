@@ -24,7 +24,7 @@ HTML을 파일로 직접 여는 방식은 브라우저에 따라 저장소·이�
 
 ## 수업 파일 보존
 
-`assets/privacy.js`, `assets/track.js`는 받은 ZIP과 바이트 단위로 동일합니다. `cta-main`, `lead-form`, `cta-submit` ID와 기존 이벤트명/위치 값도 유지했습니다. 변경된 취향 선택 처리는 별도 `assets/quiz.js`에서 수행하며, 개인정보 안내는 실제 처리 방식에 맞췄습니다.
+`assets/privacy.js`는 받은 ZIP 원본을 유지합니다. `assets/track.js`에는 `data-ga="off"` 수집 제외 처리를 추가했습니다. `cta-main`, `lead-form`, `cta-submit` ID와 기존 이벤트명/위치 값도 유지했습니다. 변경된 취향 선택 처리는 별도 `assets/quiz.js`에서 수행하며, 개인정보 안내는 실제 처리 방식에 맞췄습니다.
 
 - `cta_click`: header / hero / offer
 - `nav_click`: header
@@ -56,3 +56,9 @@ HTML을 파일로 직접 여는 방식은 브라우저에 따라 저장소·이�
 
 ## 음료 탭 사진 슬라이드
 디카페인: cups.jpg / 원두 없는 음료: taste-deep.jpg / 일반 커피: hero.jpg. 승인된 콘셉트 사진을 사용합니다. 클릭·방향키 전환 시 사진과 설명이 함께 전환되며, 동작 줄이기 설정에서는 즉시 바뀝니다. 연속 전환 상태와 동작 줄이기 로직을 검증했으며, 브라우저 비활성화로 실제 애니메이션 시각 검토는 미완료입니다.
+
+## 가이드 10번 간편 연결
+
+저장소 루트의 `ga4-easy.js`는 첨부 원본입니다. 두 HTML의 head에서 `<script src="ga4-easy.js" data-id="G-TSM04V2MVC"></script>`로 불러옵니다. 기존 `assets/ga4-config.js`와 이벤트 코드는 유지하며, 간편 연결기는 이미 있는 Google 태그를 재사용합니다. 답변 버튼은 `data-ga="off"`로 수집에서 제외합니다.
+
+배포 후 사이트에 `?ga_debug=1`을 붙이면 오른쪽 아래 확인 패널이 표시됩니다. `?ga_debug=0`으로 해제합니다. 패널은 브라우저에서 전송을 요청한 이벤트를 보여 주며 실제 GA4 수신은 같은 측정 ID의 DebugView에서 별도로 확인해야 합니다.
