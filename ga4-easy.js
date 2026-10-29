@@ -42,7 +42,9 @@
   if (typeof window.gtag !== 'function') {
     window.gtag = function () { window.dataLayer.push(arguments); };
   }
-  function send(name, params) { window.gtag('event', name, params || {}); }
+  function send(name, params) { window.gtag('event', name, params || {});
+    if (window.fbq) window.dearYouMetaEvent(name, params);
+  }
 
   var status = { id: ID, mode: '', tags: 0 };
 
@@ -118,6 +120,7 @@
   }
   function sendEasy(name, params) {
     window.gtag('event', name, params || {});
+    if (window.fbq) window.dearYouMetaEvent(name, params);
     var last = window.dataLayer[window.dataLayer.length - 1];
     if (last && last[0] === 'event') last.__easy = true;
   }

@@ -13,6 +13,7 @@
         location: el.getAttribute('data-ga-location') || '',
         button_text: (el.textContent || '').trim().slice(0, 40)
       });
+      if (window.fbq) window.dearYouMetaEvent(el.getAttribute('data-ga'), { value: el.getAttribute('data-ga-value') });
     });
   });
 })();
