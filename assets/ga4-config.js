@@ -27,7 +27,7 @@ var GA4_MEASUREMENT_ID = 'G-TSM04V2MVC';
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
     document.head.appendChild(s);
     gtag('js', new Date());
-    gtag('config', id, { debug_mode: true });
+    gtag('config', id, /[?&]ga_debug=1/.test(location.search) ? { debug_mode: true } : {});
   }
 
   /* 화면 오른쪽 아래 "이벤트 로그"에 보낸 이벤트를 보여 주기 위한 연결 (GA4 전송과는 무관) */
