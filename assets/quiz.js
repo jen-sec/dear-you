@@ -1,11 +1,13 @@
 (function(){
 'use strict';
 var form=document.getElementById('lead-form'),modal=document.getElementById('privacy-modal');
-var answers={},key='dear-you-cup-v1',error=document.getElementById('quiz-error'),pending=null;
+var answers={},key='dear-you-cup-v1',error=document.getElementById('quiz-error'),pending=null,started=false;
 try{sessionStorage.removeItem(key)}catch(e){}
+// quiz_start: 한 번의 시도에서 첫 답변을 고를 때 1회만 보냅니다. 다시 고르기를 누르면 새 시도로 봅니다.
+function trackStart(q){if(started)return;started=true;if(typeof window.gtag==='function')window.gtag('event','quiz_start',{location:'finder',first_question:q});if(typeof window.dearYouMetaEvent==='function')window.dearYouMetaEvent('quiz_start')}
 function count(){document.getElementById('quiz-progress').textContent=Object.keys(answers).length+' / 3 선택 완료'}
-document.querySelectorAll('[data-question]').forEach(function(b){b.addEventListener('click',function(){answers[b.dataset.question]=b.dataset.value;document.querySelectorAll('[data-question="'+b.dataset.question+'"]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});error.textContent='';count()})});
-document.getElementById('reset-quiz').onclick=function(){answers={};pending=null;document.querySelectorAll('[data-question]').forEach(function(b){b.setAttribute('aria-pressed','false')});error.textContent='';count();document.querySelector('[data-question]').focus()};
+document.querySelectorAll('[data-question]').forEach(function(b){b.addEventListener('click',function(){trackStart(b.dataset.question);answers[b.dataset.question]=b.dataset.value;document.querySelectorAll('[data-question="'+b.dataset.question+'"]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});error.textContent='';count()})});
+document.getElementById('reset-quiz').onclick=function(){answers={};pending=null;started=false;document.querySelectorAll('[data-question]').forEach(function(b){b.setAttribute('aria-pressed','false')});error.textContent='';count();document.querySelector('[data-question]').focus()};
 form.addEventListener('submit',function(e){
  e.preventDefault();var missing=['time','flavor','caffeine'].find(function(q){return !answers[q]});
  if(missing){e.stopImmediatePropagation();error.textContent='세 가지 질문에 하나씩 답해주세요.';document.querySelector('[data-question="'+missing+'"]').focus();return}
